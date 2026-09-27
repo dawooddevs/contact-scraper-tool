@@ -1,0 +1,22 @@
+# Scrap — serve the app from /public and keep application files private.
+# (Best practice: point the subdomain's document root at /public directly.
+#  These rules make it safe and working either way.)
+
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Let cPanel AutoSSL / Let's Encrypt validate the domain.
+  RewriteRule ^\.well-known/ - [L]
+
+  # Never expose application internals, config or dotfiles.
+  RewriteRule ^(app|bin|database|storage|tests|vendor|node_modules)(/|$) - [F,L]
+  RewriteRule (^|/)\. - [F,L]
+  RewriteRule ^(composer\.(json|lock)|package(-lock)?\.json|README\.md|phpunit\.xml)$ - [F,L]
+
+  # Everything else is served from /public.
+  RewriteCond %{REQUEST_URI} !/public/
+  RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

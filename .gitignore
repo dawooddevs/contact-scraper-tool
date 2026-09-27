@@ -1,0 +1,17 @@
+# Local configuration & runtime data (created by the installer / app)
+/storage/config.php
+/storage/logs/*
+/storage/cache/*
+/storage/cookies/*
+!/storage/logs/.gitkeep
+!/storage/cache/.gitkeep
+!/storage/cookies/.gitkeep
+
+/vendor/
+/node_modules/
+/tests/output/
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
